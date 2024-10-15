@@ -5,22 +5,28 @@ const volcanoSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        minLength: 2,
     },
     location: {
         type: String,
         required: true,
+        minLength: 3,
     },
     elevation: {
         type: Number,
         required: true,
+        min: 0
     },
     lastEruption: {
         type: Number,
         required: true,
+        min: 0,
+        max: 2024,
     },
     imageUrl: {
         type: String,
         required: true,
+        validate: /^https?:\/\//,
     },
     typeVolcano: {
         type: String,
@@ -30,12 +36,15 @@ const volcanoSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true,
+        minLength: 10,
     },
-    voteList: {
+    voteList: [{
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-    },
+    }],
     owner: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     }
 })
 
